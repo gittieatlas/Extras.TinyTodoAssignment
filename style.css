@@ -5,3 +5,33 @@ body {
 #list {
   list-style: none;
 }
+
+.flex-container {
+  padding: 0;
+  margin: 32px 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+form {
+  margin: 32px 0;
+}
+
+#input {
+  width: 300px;
+}
+
+input[type='checkbox'] {
+  margin: 16px;
+}
+
+ul {
+  text-align: left;
+  width: 500px;
+}
+.completed {
+  text-decoration: line-through;
+}

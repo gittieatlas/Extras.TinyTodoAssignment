@@ -1,5 +1,3 @@
-console.log('Your JavaScript is running, better go catch it!')
-
 /*
 Tasks:
 
@@ -20,3 +18,67 @@ Tasks:
 3. Create a delete button for each task that will take that task off the DOM!
   - No hints for you ;)
 */
+
+const taskInput = document.getElementById('input');
+const listNode = document.getElementById('list');
+
+let tasks = [];
+class Task {
+  constructor(value) {
+    this.value = value;
+    this.completed = false;
+  }
+  setItem(checked) {
+    this.completed = checked;
+  }
+}
+
+/* add item to list on dom */
+function addListItem(task) {
+  const nameOfNode = tasks.length - 1;
+  let node = document.createElement('LI');
+
+  var checkbox = document.createElement('input');
+  checkbox.type = 'checkbox';
+  checkbox.value = 0;
+  checkbox.name = nameOfNode;
+  checkbox.classList.add('formCheckInput');
+
+  node.appendChild(checkbox);
+
+  let textnode = document.createTextNode(task.value);
+  node.appendChild(textnode);
+  node.name = nameOfNode;
+  listNode.appendChild(node);
+}
+
+/**
+ * Event Listeners
+ */
+document.getElementById('submit').addEventListener('click', event => {
+  event.preventDefault();
+
+  if (taskInput.value.length < 1) return;
+
+  let task = new Task(taskInput.value);
+  tasks.push(task);
+  addListItem(task);
+  taskInput.value = '';
+});
+
+listNode.addEventListener('change', event => {
+  if (event.target.tagName !== 'INPUT') {
+    return;
+  }
+  let checkbox = event.target;
+  if (checkbox) {
+    if (checkbox.checked) {
+      checkbox.parentNode.classList.add('completed');
+      checkbox.setAttribute('checked', 'checked');
+    } else {
+      checkbox.parentNode.classList.remove('completed');
+      checkbox.removeAttribute('checked');
+    }
+    tasks[checkbox.name].setItem(checkbox.checked);
+  }
+});
